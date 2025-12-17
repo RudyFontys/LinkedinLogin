@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Login</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- LinkedIn SDK -->
+    <script src="https://platform.linkedin.com/in.js" type="text/javascript">
+        api_key: YOUR_LINKEDIN_API_KEY
+        authorize: true
+        onLoad: onLinkedInLoad
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login met LinkedIn</h1>
+        <button id="linkedin-login" class="login-button">Inloggen met LinkedIn</button>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>
