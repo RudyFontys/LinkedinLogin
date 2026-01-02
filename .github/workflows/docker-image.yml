@@ -24,11 +24,11 @@ jobs:
 
     - name: Build and push
       uses: docker/build-push-action@v3 # build-push-action in Github, zie action.yml file in https://github.com/marketplace/actions/build-and-push-docker-images
-       with:
-         push: true
-         tags: |
-           ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-login:latest
-           ${{ secrets.DOCKER_HUB_TOKEN }}/linkedin-login:${{ github.sha }}
+        with:
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-login:latest
+            ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-login:${{ github.sha }}
       
     
    # - name: Build the Docker image
