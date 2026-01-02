@@ -26,4 +26,4 @@ jobs:
     push: true
     tags: |
       rudyfontys/linkedin-login:latest
-      rudyfontys/linkedin-login:${{ github.ref_name }}  # Gebruikt de Git-tag (bijv. v1.0.0)
+      rudyfontys/linkedin-login:${{ github.ref_name }}
