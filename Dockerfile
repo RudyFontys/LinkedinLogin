@@ -1,7 +1,7 @@
 # Gebruik de officiële Apache2 image
 FROM httpd:2.4
 
-# Stel de werkdirectory in
+# Stel de werkdirectory in voor HTML files
 WORKDIR /usr/local/apache2/htdocs
 
 # Kopieer alle website bestanden
