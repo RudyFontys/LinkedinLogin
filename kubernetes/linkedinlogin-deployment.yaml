@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkedinlogin
+  namespace: linkedinlogin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: linkedinlogin
+  template:
+    metadata:
+      labels:
+        app: linkedinlogin
+    spec:
+      containers:
+      - name: linkedinlogin
+        image: rudyfontys/linkedin-login:v1.0.1  # Wordt automatisch bijgewerkt door Argo CD
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-data
+          mountPath: /usr/share/nginx/html  # Aanpassen aan je applicatie
+      volumes:
+      - name: html-data
+        persistentVolumeClaim:
+          claimName: linkedinlogin-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: linkedinlogin-service
+  namespace: linkedinlogin
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 10.255.255.230  # MetalLB IP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: linkedinlogin

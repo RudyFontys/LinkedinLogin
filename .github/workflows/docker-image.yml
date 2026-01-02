@@ -1,42 +1,49 @@
-name: Docker Image LinkedinLogin
+name: Docker Image CI
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Voor github-tag-action
+      packages: write  # Voor Docker push
 
     steps:
-      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Nodig voor git-tags
+          fetch-depth: 0  # Haal alle git-historie op voor tagging
 
-      # 2. Automatisch versie verhogen (patch: 1.0.0 → 1.0.1)
-      - name: Bump version
-        uses: mathieudutour/github-tag-action@v6.1
-        id: tag_version
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Automatisch gegenereerd door GitHub
-          default_bump: patch  # Opties: major, minor, patch
-
-      # 3. Login naar Docker Hub
       - name: Login to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      # 4. Build en push Docker image met nieuwe tag
-      - name: Build and push
-        uses: docker/build-push-action@v4
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
         with:
+          github_token: ${{ secrets.GH_PAT }}  # Personal Access Token
+          default_bump: patch
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
           push: true
           tags: |
             rudyfontys/linkedin-login:latest
             rudyfontys/linkedin-login:${{ steps.tag_version.outputs.new_tag }}
+
+      - name: Update Kubernetes Deployment via Argo CD
+        uses: argoproj-labs/argocd-image-updater@v1.0.0
+        with:
+          argocd-server: https://argocd-server.argocd.svc  # Vervang door je Argo CD URL
+          argocd-token: ${{ secrets.ARGOCD_TOKEN }}  # Maak een token aan in Argo CD
+          application-name: linkedinlogin
+          image: rudyfontys/linkedin-login
+          tag: ${{ steps.tag_version.outputs.new_tag }}
