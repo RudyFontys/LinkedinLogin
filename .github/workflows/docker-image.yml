@@ -21,9 +21,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-login:latest
-            ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-login:${{ github.sha }}
+  uses: docker/build-push-action@v4
+  with:
+    push: true
+    tags: |
+      rudyfontys/linkedin-login:latest
+      rudyfontys/linkedin-login:${{ github.ref_name }}  # Gebruikt de Git-tag (bijv. v1.0.0)
