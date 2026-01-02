@@ -39,11 +39,11 @@ jobs:
             rudyfontys/linkedin-login:latest
             rudyfontys/linkedin-login:${{ steps.tag_version.outputs.new_tag }}
 
-      - name: Update Kubernetes Deployment via Argo CD
-        uses: argoproj-labs/argocd-image-updater@v1.0.0
-        with:
-          argocd-server: https://argocd-server.argocd.svc  # Vervang door je Argo CD URL
-          argocd-token: ${{ secrets.ARGOCD_TOKEN }}  # Maak een token aan in Argo CD
-          application-name: linkedinlogin
-          image: rudyfontys/linkedin-login
-          tag: ${{ steps.tag_version.outputs.new_tag }}
+      #- name: Update Kubernetes Deployment via Argo CD
+      #  uses: argoproj-labs/argocd-image-updater@v1.0.0
+      #  with:
+      #    argocd-server: http://10.255.255.223
+      #    argocd-token: ${{ secrets.ARGOCD_TOKEN }}  # Maak een token aan in Argo CD
+      #    application-name: linkedinlogin
+      #    image: rudyfontys/linkedin-login
+      #    tag: ${{ steps.tag_version.outputs.new_tag }}
