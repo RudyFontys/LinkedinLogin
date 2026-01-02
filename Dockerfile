@@ -11,7 +11,7 @@ COPY public/ .
 RUN chown -R www-data:www-data /usr/local/apache2/htdocs
 
 # Stel de omgevingsvariabelen in (optioneel)
-ENV LINKEDIN_API_KEY="YOUR_LINKEDIN_API_KEY"
+# ENV LINKEDIN_API_KEY="YOUR_LINKEDIN_API_KEY"
 
 # Expose poort 80
 EXPOSE 80
