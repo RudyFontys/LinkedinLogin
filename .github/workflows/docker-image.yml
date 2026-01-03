@@ -27,7 +27,7 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
-          github_token: ${{ secrets.GH_PAT }}  # Personal Access Token
+          github_token: ${{ secrets.GH_PAT }}  # Personal Access Token GitHub account
           default_bump: patch
 
       - name: Build and push Docker image
