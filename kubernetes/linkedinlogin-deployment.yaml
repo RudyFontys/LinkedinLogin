@@ -13,6 +13,19 @@ spec:
       labels:
         app: linkedinlogin
     spec:
+      securityContext:  # aanpassen rechten voor Longhorn (door installatiefout)
+        runAsUser: 1000
+        fsGroup: 1000
+      initContainers:
+        - name: fix-permissions
+          image: busybox:latest
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /data/appendonlydir
+              chown -R 1000:1000 /data
+              chmod -R 700 /data
       containers:
       - name: linkedinlogin
         image: rudyfontys/linkedin-login:v1.0.1  # Wordt automatisch bijgewerkt door Argo CD
