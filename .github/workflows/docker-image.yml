@@ -1,4 +1,4 @@
-name: Docker Image CI (Multi-Arch)
+name: Docker Image CI (ARM64)
 
 on:
   push:
@@ -8,18 +8,16 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Voor github-tag-action
-      packages: write  # Voor Docker push
+      contents: write
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Haal alle git-historie op voor tagging
 
-      - name: Set up QEMU (voor multi-arch builds)
+      - name: Set up QEMU (voor ARM-emulatie)
         uses: docker/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx (voor multi-arch builds)
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
@@ -32,14 +30,14 @@ jobs:
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.1
         with:
-          github_token: ${{ secrets.GH_PAT }}  # Personal Access Token GitHub account
+          github_token: ${{ secrets.GH_PAT }}
           default_bump: patch
 
-      - name: Build and push Docker image (Multi-Arch)
+      - name: Build and push ARM64 image
         uses: docker/build-push-action@v5
         with:
           context: .
-          platforms: linux/amd64,linux/arm64  # Bouw voor beide architecturen
+          platforms: linux/arm64  # Alleen ARM64 bouwen
           push: true
           tags: |
             rudyfontys/linkedin-login:latest
@@ -48,8 +46,8 @@ jobs:
       - name: Update Kubernetes Deployment via Argo CD
         uses: argoproj-labs/argocd-image-updater@v1.0.0
         with:
-          argocd-server: https://84.85.191.38  # server bij mij thuis
-          argocd-token: ${{ secrets.ARGOCD_TOKEN }}  # Maak een token aan in Argo CD
+          argocd-server: https://84.85.191.38
+          argocd-token: ${{ secrets.ARGOCD_TOKEN }}
           application-name: linkedinlogin
           image: rudyfontys/linkedin-login
           tag: ${{ steps.tag_version.outputs.new_tag }}
