@@ -1,0 +1,13 @@
+# linkedin-app-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: linkedin-app-pvc
+  namespace: linkedin-app
+spec:
+  accessModes:
+    - ReadWriteOnce  # Alleen 1 pod kan schrijven
+  storageClassName: longhorn  # Gebruik Longhorn als storage provider
+  resources:
+    requests:
+      storage: 1Gi  # 1GB opslag 

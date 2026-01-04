@@ -2,8 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: linkedin-app
+  namespace: linkedin-app
 spec:
-  replicas: 1
+  replicas: 2  # (Je kunt later meer replicas toevoegen)
   selector:
     matchLabels:
       app: linkedin-app
@@ -17,10 +18,10 @@ spec:
         image: rudyfontys/linkedin-app:latest
         ports:
         - containerPort: 80
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
+        volumeMounts:
+        - name: linkedin-html-storage
+          mountPath: /usr/share/nginx/html  # Waar je HTML-bestanden staan
+      volumes:
+      - name: linkedin-html-storage
+        persistentVolumeClaim:
+          claimName: linkedin-app-pvc  # Verwijst naar de PVC
