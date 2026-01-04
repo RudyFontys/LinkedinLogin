@@ -1,23 +1,8 @@
-# Gebruik een expliciete ARM64 base image
-FROM arm64v8/httpd:2.4 AS builder
+# Gebruik een lichtgewicht ARM-compatibele webserver (nginx)
+FROM --platform=linux/arm64 nginx:alpine
 
-# Stel de werkdirectory in voor HTML
-WORKDIR /usr/local/apache2/htdocs
+# Kopieer de statische bestanden naar de nginx webroot
+COPY public/ /usr/share/nginx/html/
 
-# Kopieer alle website bestanden
-COPY public/ .
-
-# Stel de juiste rechten in
-RUN chown -R www-data:www-data /usr/local/apache2/htdocs
-
-# Final image (gebruikt de juiste architectuur)
-FROM arm64v8/httpd:2.4
-
-# Kopieer de bestanden vanuit de builder
-COPY --from=builder /usr/local/apache2/htdocs /usr/local/apache2/htdocs
-
-# Stel de juiste rechten in
-RUN chown -R www-data:www-data /usr/local/apache2/htdocs
-
-# Expose poort 80
+# Expose poort 80 (standaard voor nginx)
 EXPOSE 80
