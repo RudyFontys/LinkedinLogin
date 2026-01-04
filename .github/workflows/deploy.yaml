@@ -31,11 +31,11 @@ jobs:
           VERSION=$(jq -r '.version' package.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Build and push Docker image
+      - name: Build and push multi-arch Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64  # Bouw voor zowel x86 als ARM
           push: true
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
@@ -49,11 +49,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install ArgoCD CLI
+      - name: Install ArgoCD CLI (x86_64)
         run: |
-          curl -sSL -o argocd-linux-arm64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
-          chmod +x argocd-linux-arm64
-          sudo mv argocd-linux-arm64 /usr/local/bin/argocd
+          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x argocd-linux-amd64
+          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
 
       - name: Login to ArgoCD
         run: |

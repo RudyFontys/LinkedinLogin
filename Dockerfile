@@ -1,7 +1,7 @@
-# Gebruik een lichtgewicht ARM-compatibele webserver (nginx)
-FROM --platform=linux/arm64 nginx:alpine
+# Gebruik een multi-platform base image (werkt op ARM en x86)
+FROM nginx:alpine
 
-# Kopieer de statische bestanden naar de nginx webroot
+# Kopieer statische bestanden naar de webroot
 COPY public/ /usr/share/nginx/html/
 
 # Expose poort 80 (standaard voor nginx)
