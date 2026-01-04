@@ -1,5 +1,5 @@
 # LinkedinLogin
-Eigen project Rudy, login met Linkedin om de weerstverwachting te zien
+Eigen project Rudy, login met Linkedin om de weerstverwachting te zien in Kubernetes CI/CD met ArgoCD
 
 Dit is een schoolproject waarbij ik onderzoek hoe men met een 3e party op een website kan inloggen.
 
