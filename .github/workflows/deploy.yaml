@@ -35,7 +35,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/amd64,linux/arm64  # Bouw voor zowel x86 als ARM
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ env.DOCKER_IMAGE }}:latest
@@ -55,9 +55,9 @@ jobs:
           chmod +x argocd-linux-amd64
           sudo mv argocd-linux-amd64 /usr/local/bin/argocd
 
-      - name: Login to ArgoCD
+      - name: Login to ArgoCD (met token)
         run: |
-          argocd login ${{ env.ARGOCD_SERVER }} --username admin --password ${{ secrets.ARGOCD_TOKEN }} --plaintext
+          argocd login ${{ env.ARGOCD_SERVER }} --grpc-web --auth-token ${{ secrets.ARGOCD_TOKEN }} --plaintext
 
       - name: Deploy application
         run: |
