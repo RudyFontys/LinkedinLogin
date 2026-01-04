@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: linkedin-app
-        image: rudyfontys/linkedin-app
+        image: rudyfontys/linkedin-app:latest
         ports:
         - containerPort: 80
         env:
