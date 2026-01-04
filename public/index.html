@@ -2,11 +2,30 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkedIn Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Login met LinkedIn</h1>
-    <button onclick="login()">Inloggen met LinkedIn</button>
+    <!-- Bovenste afbeelding -->
+    <div class="top-logo fade-in">
+        <img src="aaarch.jpg" alt="AAArch Logo">
+    </div>
+
+    <!-- Login container -->
+    <div class="login-container slide-up">
+        <h1>Welkom</h1>
+        <p>Login veilig met je LinkedIn account</p>
+        <button class="linkedin-btn" onclick="login()">
+            <img src="linkedin-logo.png" alt="LinkedIn logo" class="linkedin-logo">
+            Inloggen met LinkedIn
+        </button>
+    </div>
+
+    <!-- Onderste afbeelding -->
+    <div class="bottom-logo fade-in">
+        <img src="Fontys.jpg" alt="Fontys Logo">
+    </div>
 
     <script>
         function login() {
