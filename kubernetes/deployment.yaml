@@ -4,7 +4,7 @@ metadata:
   name: linkedin-app
   namespace: linkedin-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: linkedin-app
@@ -18,3 +18,14 @@ spec:
         image: rudyfontys/linkedin-app:latest
         ports:
         - containerPort: 80
+        env:
+        - name: LINKEDIN_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: linkedin-api
+              key: client_id
+        - name: LINKEDIN_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: linkedin-api
+              key: client_secret
