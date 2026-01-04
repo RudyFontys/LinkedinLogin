@@ -10,7 +10,7 @@ metadata:
   argocd-image-updater.argoproj.io/write-back-method: git
   argocd-image-updater.argoproj.io/write-back-target: kubernetes/deployment.yaml
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: linkedin-app
@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: linkedin-app
-        image: rudyfontys/linkedin-app # Dit wordt automatisch bijgewerkt door ArgoCD
+        image: rudyfontys/linkedin-app:latest # Dit wordt automatisch bijgewerkt door ArgoCD
         ports:
         - containerPort: 80
         env:
