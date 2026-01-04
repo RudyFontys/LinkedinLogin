@@ -63,15 +63,22 @@ jobs:
 
       - name: Update Deployment image
         run: |
+          # Vervang image tag in deployment.yaml
           sed -i "s|image: rudyfontys/linkedin-app:.*|image: rudyfontys/linkedin-app:${{ needs.bump-version.outputs.new_version }}|g" kubernetes/deployment.yaml
 
       - name: Commit and push Deployment update
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          # Alleen committen als er wijzigingen zijn
+          git diff
           git add kubernetes/deployment.yaml
-          git commit -m "Update Deployment to ${{ needs.bump-version.outputs.new_version }}"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Deployment to ${{ needs.bump-version.outputs.new_version }}"
+            git push
+          else
+            echo "No changes to commit"
+          fi
 
   deploy-to-kubernetes:
     needs: update-deployment
