@@ -1,4 +1,4 @@
-// Ik heb geen "secret" voor de API key, hier zit geen security risico aan.p
+// Ik heb geen "secret" voor de API key, hier zit geen security risico aan.
 const API_KEY = '07de55c9b766f3d1164c540abe73bbbe';
 const CITY = 'Tilburg';
 const COUNTRY_CODE = 'NL';
