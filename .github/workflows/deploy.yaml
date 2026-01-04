@@ -5,9 +5,9 @@ on:
     branches: [ main ]
 
 env:
-  DOCKER_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-app
+  DOCKER_IMAGE: rudyfontys/linkedin-login
   ARGOCD_SERVER: https://84.85.191.38
-  ARGOCD_APP_NAME: linkedin-app
+  ARGOCD_APP_NAME: linkedinlogin
 
 jobs:
   build-and-push:
@@ -46,19 +46,11 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install ArgoCD CLI (x86_64)
-        run: |
-          curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x argocd-linux-amd64
-          sudo mv argocd-linux-amd64 /usr/local/bin/argocd
-
-      - name: Login to ArgoCD (met token)
-        run: |
-          argocd login ${{ env.ARGOCD_SERVER }} --grpc-web --auth-token ${{ secrets.ARGOCD_TOKEN }} --plaintext
-
-      - name: Deploy application
-        run: |
-          argocd app sync ${{ env.ARGOCD_APP_NAME }} --revision ${{ github.sha }}
+      - name: Update Kubernetes Deployment via Argo CD
+        uses: argoproj-labs/argocd-image-updater@v1.0.0
+        with:
+          argocd-server: ${{ env.ARGOCD_SERVER }}
+          argocd-token: ${{ secrets.ARGOCD_TOKEN }}
+          application-name: ${{ env.ARGOCD_APP_NAME }}
+          image: ${{ env.DOCKER_IMAGE }}
+          tag: ${{ github.sha }}
