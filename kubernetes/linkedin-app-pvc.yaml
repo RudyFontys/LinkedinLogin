@@ -6,7 +6,7 @@ metadata:
   namespace: linkedin-app
 spec:
   accessModes:
-    - ReadWriteOnce  # Alleen 1 pod kan schrijven
+    - ReadWriteMany  # Meerdere pods kunnen schrijven
   storageClassName: longhorn  # Gebruik Longhorn als storage provider
   resources:
     requests:
