@@ -65,5 +65,6 @@ jobs:
           argocd-token: ${{ secrets.ARGOCD_TOKEN }}
           application-name: ${{ env.ARGOCD_APP_NAME }}
           image: ${{ env.DOCKER_IMAGE }}
-          tag: ${{ needs.bump-version.outputs.new_version }}  # Gebruik de nieuwe versie
+          tag: latest
+          #tag: ${{ needs.bump-version.outputs.new_version }}  # Gebruik de nieuwe versie
           force-update: true  # Forceer een update
