@@ -57,7 +57,7 @@ jobs:
 
       - name: Login to ArgoCD
         run: |
-          argocd login ${{ env.ARGOCD_SERVER }} --username admin --password ${{ secrets.ARGOCD_TOKEN }} --insecure
+          argocd login ${{ env.ARGOCD_SERVER }} --username admin --password ${{ secrets.ARGOCD_TOKEN }} --plaintext
 
       - name: Deploy application
         run: |
