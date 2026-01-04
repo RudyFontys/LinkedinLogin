@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkedIn Login</title>
     <link rel="stylesheet" href="style.css">
-    <!-- LinkedIn SDK (API Key wordt direct ingevuld door Kubernetes) -->
+    <!-- LinkedIn SDK -->
     <script src="https://platform.linkedin.com/in.js" type="text/javascript">
-        api_key: "<?= process.env.LINKEDIN_CLIENT_ID mould>"
+        api_key: 78wm043blaf2rt
         authorize: true
         onLoad: onLinkedInLoad
     </script>
@@ -15,7 +15,6 @@
 <body>
     <div class="login-container">
         <h1>Login met LinkedIn</h1>
-        <h3>Aangeboden door Rudy</h3>
         <button id="linkedin-login" class="login-button">Inloggen met LinkedIn</button>
     </div>
     <script src="auth.js"></script>
