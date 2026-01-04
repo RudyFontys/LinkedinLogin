@@ -4,7 +4,7 @@ metadata:
   name: linkedin-app
   namespace: linkedin-app
 spec:
-  replicas: 2  # (Je kunt later meer replicas toevoegen)
+  replicas: 2
   selector:
     matchLabels:
       app: linkedin-app
@@ -18,10 +18,3 @@ spec:
         image: rudyfontys/linkedin-app:latest
         ports:
         - containerPort: 80
-        volumeMounts:
-        - name: linkedin-html-storage
-          mountPath: /usr/share/nginx/html  # Waar je HTML-bestanden staan
-      volumes:
-      - name: linkedin-html-storage
-        persistentVolumeClaim:
-          claimName: linkedin-app-pvc  # Verwijst naar de PVC
