@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: linkedin-app
-        image: ${{ secrets.DOCKER_HUB_USERNAME }}/linkedin-app:latest
+        image: rudyfontys/linkedin-app:latest
         ports:
         - containerPort: 80
         resources:
