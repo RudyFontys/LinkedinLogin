@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: linkedin-app
-        image: rudyfontys/linkedin-app:1.0.26 # Dit wordt automatisch bijgewerkt door ArgoCD
+        image: rudyfontys/linkedin-app:latest # Dit wordt automatisch bijgewerkt door ArgoCD
         ports:
         - containerPort: 80
         env:
