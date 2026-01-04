@@ -1,8 +1,13 @@
-# Gebruik een multi-platform base image (werkt op ARM en x86)
-FROM nginx:alpine
+FROM node:20-alpine
 
-# Kopieer statische bestanden naar de webroot
-COPY public/ /usr/share/nginx/html/
+WORKDIR /app
 
-# Expose poort 80 (standaard voor nginx)
+COPY package.json ./
+RUN npm install --production
+
+COPY server.js ./
+COPY public/ ./public/
+
 EXPOSE 80
+
+CMD ["npm", "start"]
