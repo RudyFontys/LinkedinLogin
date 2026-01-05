@@ -52,6 +52,7 @@ jobs:
           push: true
           tags:
             ${{ env.DOCKER_IMAGE }}:${{ needs.bump-version.outputs.new_version }}
+            ${{ env.DOCKER_IMAGE }}:latest
 
   update-deployment:
     needs: build-and-push
