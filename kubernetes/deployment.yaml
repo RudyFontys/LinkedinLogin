@@ -4,11 +4,11 @@ metadata:
   name: linkedin-app
   namespace: linkedin-app
   annotations:
-  argocd-image-updater.argoproj.io/image-list: linkedin-app=rudyfontys/linkedin-app
-  argocd-image-updater.argoproj.io/linkedin-app.update-strategy: latest
-  argocd-image-updater.argoproj.io/linkedin-app.allow-tags: regexp:^1\\.0\\.\\d+$
-  argocd-image-updater.argoproj.io/write-back-method: git
-  argocd-image-updater.argoproj.io/write-back-target: kubernetes/deployment.yaml
+    argocd-image-updater.argoproj.io/image-list: linkedin-app=rudyfontys/linkedin-app
+    argocd-image-updater.argoproj.io/linkedin-app.update-strategy: latest
+    argocd-image-updater.argoproj.io/linkedin-app.allow-tags: regexp:^1\\.0\\.\\d+$
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/write-back-target: kubernetes/deployment.yaml
 spec:
   replicas: 3
   selector:
