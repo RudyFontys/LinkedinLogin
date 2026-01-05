@@ -50,8 +50,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            ${{ env.DOCKER_IMAGE }}:latest
+          tags:
             ${{ env.DOCKER_IMAGE }}:${{ needs.bump-version.outputs.new_version }}
 
   update-deployment:
