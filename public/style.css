@@ -61,6 +61,22 @@ body {
     transform: scale(1.05);
 }
 
+/* Onderste logo */
+.bottom-logo img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 2rem;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--white);
+    transition: var(--transition);
+}
+
+.top-logo img:hover {
+    transform: scale(1.05);
+}
+
 /* Login container */
 .login-container {
     background: var(--white);
