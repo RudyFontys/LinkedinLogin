@@ -1,7 +1,18 @@
 /* Algemene body styling */
+:root {
+    --primary-color: #0077b5;
+    --primary-dark: #005983;
+    --secondary-color: #82cbe8;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --white: #ffffff;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, var(--secondary-color), #a1d8f0);
     margin: 0;
     padding: 0;
     display: flex;
@@ -9,85 +20,106 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-}
-
-/* Locatiekeuze styling */
-.location-selector {
-    margin: 20px 0;
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    max-width: 500px;
-}
-
-#location-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-#search-btn {
-    padding: 10px 20px;
-    background-color: #0077b5;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-#search-btn:hover {
-    background-color: #005983;
-}
-
-/* Weerkaart styling */
-.weather-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 500px;
-}
-
-.weather-icon {
-    width: 100px;
-    height: 100px;
-}
-
-/* Voorspelling items */
-.forecast-item {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 10px;
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 500px;
-}
-
-.forecast-item .weather-icon {
-    width: 50px;
-    height: 50px;
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
 /* Animatie keyframes */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 /* Fade-in class */
 .fade-in {
-    animation: fadeIn 1.5s ease forwards;
+    animation: fadeIn 1.5s ease-out forwards;
 }
+
+/* Slide-up class */
+.slide-up {
+    animation: slideUp 1s ease-out forwards;
+}
+
+/* Bovenste logo */
+.top-logo img {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 2rem;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 3px solid var(--white);
+    transition: var(--transition);
+}
+
+.top-logo img:hover {
+    transform: scale(1.05);
+}
+
+/* Login container */
+.login-container {
+    background: var(--white);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    width: 90%;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.login-container h1 {
+    margin: 0 0 1rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.login-container p {
+    margin: 0 0 2rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Button styling */
+.linkedin-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: var(--transition);
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.linkedin-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.linkedin-btn:active {
+    transform: translateY(0);
+}
+
+/* LinkedIn logo in button */
+.linkedin-logo {
+    width: 24

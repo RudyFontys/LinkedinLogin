@@ -64,7 +64,7 @@ app.get("/callback", async (req, res) => {
 
         console.log("LinkedIn user:", userInfo.data);
 
-        // TODO: sessie / JWT / cookie
+        // TODO: sessie / JWT / cookie, dit kan pas als de PV storage werkt.
         res.redirect("/home.html");
 
     } catch (err) {
