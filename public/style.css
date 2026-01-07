@@ -119,7 +119,3 @@ body {
 .linkedin-btn:active {
     transform: translateY(0);
 }
-
-/* LinkedIn logo in button */
-.linkedin-logo {
-    width: 24
