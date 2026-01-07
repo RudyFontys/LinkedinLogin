@@ -1,0 +1,133 @@
+/* homestyle.css */
+
+/* Kleuren en variabelen */
+:root {
+    --primary-color: #0077b5;
+    --primary-dark: #005983;
+    --secondary-color: #82cbe8;
+    --text-color: #333;
+    --white: #ffffff;
+    --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    --transition: all 0.3s ease;
+    --bg-gradient: linear-gradient(135deg, var(--secondary-color), #a1d8f0);
+}
+
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-gradient);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    color: var(--text-color);
+}
+
+/* Content container */
+.content {
+    text-align: center;
+    max-width: 700px;
+    width: 90%;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+/* Titel en subtitels */
+.content h1 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 2.2rem;
+}
+.content h3 {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    font-weight: normal;
+}
+
+/* Locatie selector */
+.location-selector {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.location-selector input[type="text"] {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    flex: 1;
+    max-width: 300px;
+    transition: var(--transition);
+}
+
+.location-selector input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(0, 119, 181, 0.5);
+}
+
+.location-selector button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.location-selector button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Weather info container */
+#weather-info {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Forecast cards container */
+#forecast-container {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Individuele forecast card */
+.forecast-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    padding: 1rem 1.5rem;
+    width: 150px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.forecast-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Animaties */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
