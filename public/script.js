@@ -1,16 +1,42 @@
-// Ik heb geen "secret" voor de API key, hier zit geen security risico aan.
+// API key voor OpenWeatherMap (let op: in productie moet dit beter beveiligd worden)
 const API_KEY = '07de55c9b766f3d1164c540abe73bbbe';
-const CITY = 'Tilburg';
-const COUNTRY_CODE = 'NL';
+
+// Standaard locatie instellen
+let currentCity = 'Tilburg';
+let currentCountryCode = 'NL';
+
+// DOM elementen ophalen
+const locationInput = document.getElementById('location-input');
+const searchBtn = document.getElementById('search-btn');
+const weatherInfo = document.getElementById('weather-info');
+const forecastContainer = document.getElementById('forecast-container');
+
+// Event listener voor zoekknop
+searchBtn.addEventListener('click', () => {
+    const inputValue = locationInput.value.trim();
+    if (inputValue) {
+        // Splits de input in stad en landcode (bijv. "Amsterdam, NL")
+        const parts = inputValue.split(',').map(part => part.trim());
+        currentCity = parts[0];
+        currentCountryCode = parts.length > 1 ? parts[1] : 'NL'; // Standaard NL als geen landcode is opgegeven
+
+        // Haal nieuwe weergegevens op
+        fetchCurrentWeather();
+        fetchForecast();
+    } else {
+        alert('Voer een geldige locatie in');
+    }
+});
 
 // Huidig weer ophalen
 async function fetchCurrentWeather() {
     try {
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${CITY},${COUNTRY_CODE}&appid=${API_KEY}&units=metric&lang=nl`
+            `https://api.openweathermap.org/data/2.5/weather?q=${currentCity},${currentCountryCode}&appid=${API_KEY}&units=metric&lang=nl`
         );
         const data = await response.json();
 
+        // Controleer of de API een foutmelding teruggeeft
         if (data.cod !== 200) {
             throw new Error(data.message || 'Kon weergegevens niet ophalen');
         }
@@ -18,8 +44,9 @@ async function fetchCurrentWeather() {
         displayCurrentWeather(data);
     } catch (error) {
         console.error('Fout bij ophalen huidige weer:', error);
-        document.getElementById('weather-info').innerHTML = `
+        weatherInfo.innerHTML = `
             <p style="color: red;">Kon weergegevens niet ophalen: ${error.message}</p>
+            <p>Controleer of de locatie correct is ingevuld (bijv. "Amsterdam, NL")</p>
         `;
     }
 }
@@ -28,7 +55,7 @@ async function fetchCurrentWeather() {
 async function fetchForecast() {
     try {
         const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${CITY},${COUNTRY_CODE}&appid=${API_KEY}&units=metric&lang=nl&cnt=8`
+            `https://api.openweathermap.org/data/2.5/forecast?q=${currentCity},${currentCountryCode}&appid=${API_KEY}&units=metric&lang=nl&cnt=8`
         );
         const data = await response.json();
 
@@ -39,7 +66,7 @@ async function fetchForecast() {
         displayForecast(data);
     } catch (error) {
         console.error('Fout bij ophalen voorspelling:', error);
-        document.getElementById('forecast-container').innerHTML = `
+        forecastContainer.innerHTML = `
             <p style="color: red;">Kon voorspelling niet ophalen: ${error.message}</p>
         `;
     }
@@ -47,15 +74,13 @@ async function fetchForecast() {
 
 // Huidig weer weergeven
 function displayCurrentWeather(data) {
-    const weatherInfo = document.getElementById('weather-info');
-
     const weather = data.weather[0];
     const iconUrl = `https://openweathermap.org/img/wn/${weather.icon}@2x.png`;
 
     weatherInfo.innerHTML = `
         <div class="weather-card">
             <div>
-                <h2>${data.name}</h2>
+                <h2>${data.name}, ${data.sys.country}</h2>
                 <p>${Math.round(data.main.temp)}°C</p>
                 <p>${weather.description}</p>
                 <p>Vochtigheid: ${data.main.humidity}%</p>
@@ -68,7 +93,6 @@ function displayCurrentWeather(data) {
 
 // Voorspelling weergeven
 function displayForecast(data) {
-    const forecastContainer = document.getElementById('forecast-container');
     forecastContainer.innerHTML = '<h2>Voorspelling voor de komende uren</h2>';
 
     data.list.forEach(item => {

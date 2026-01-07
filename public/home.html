@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weersverwachting Tilburg</title>
+    <title>Weersverwachting</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="content">
-        <h1>Weersverwachting Tilburg</h1>
+        <h1>Weersverwachting</h1>
         <h3>Exclusief voor Linkedin leden</h3>
         <h3>Aangeboden door Rudy</h3>
+
+        <!-- Locatiekeuze toevoegen -->
+        <div class="location-selector">
+            <input type="text" id="location-input" placeholder="Voer een locatie in (bijv. Amsterdam, NL)" value="Tilburg, NL">
+            <button id="search-btn">Zoek weer</button>
+        </div>
+
         <div id="weather-info">
             <p>Laden van weersgegevens...</p>
         </div>

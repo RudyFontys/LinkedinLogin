@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: linkedin-app=rudyfontys/linkedin-app
     argocd-image-updater.argoproj.io/linkedin-app.update-strategy: latest
-    argocd-image-updater.argoproj.io/linkedin-app.allow-tags: regexp:^1\\.0\\.\\d+$
+    argocd-image-updater.argoproj.io/linkedin-app.allow-tags: regexp:^1\.0\.\d+$
     argocd-image-updater.argoproj.io/write-back-method: git
     argocd-image-updater.argoproj.io/write-back-target: kubernetes/deployment.yaml
 spec:
@@ -21,9 +21,16 @@ spec:
     spec:
       containers:
       - name: linkedin-app
-        image: rudyfontys/linkedin-app # Dit wordt automatisch bijgewerkt door ArgoCD
+        image: rudyfontys/linkedin-app
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: "1"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "512Mi"
         env:
         - name: LINKEDIN_CLIENT_ID
           valueFrom:
@@ -35,3 +42,29 @@ spec:
             secretKeyRef:
               name: linkedin-api
               key: client_secret
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: linkedin-app-hpa
+  namespace: linkedin-app
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: linkedin-app
+  minReplicas: 3
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 75
