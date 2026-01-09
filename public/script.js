@@ -28,6 +28,14 @@ searchBtn.addEventListener('click', () => {
     }
 });
 
+// Enter is ook doorgaan in plaats van muisklikken
+locationInput.addEventListener('keydown', (event) => { //event = als er iets gebeurd in de browser
+    if (event.key === 'Enter') {
+        event.preventDefault();  //formulier submitten, pagina niet herladen, JavaScript (fetchCurrentWeather()) draait
+        searchBtn.click();
+    }
+});
+
 // Huidig weer ophalen
 async function fetchCurrentWeather() {
     try {
